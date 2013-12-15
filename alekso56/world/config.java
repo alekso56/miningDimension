@@ -4,30 +4,47 @@ import net.minecraftforge.common.Property;
 
 public class config
 {
+	public static int dimension;
+    public static int biomeID;
+    public static boolean spawnMonsters;
+    public static boolean spawnAnimals;
+    public static double height;
+    public static int maxGenHeight;
+    public static int portal; // inner block id
+    public static int frame; //outer block id 2
     static void loadConfig(Configuration config)
     {
         config.load();
+        
+        //dimensionid
         Property dimensionProp = config.get("general", "DimensionID", 6);
         dimensionProp.comment = "The Mining World will have this dimension ID.";
-        miningworld.dimension = dimensionProp.getInt(6);
+        dimension = dimensionProp.getInt(6);
+        //biomeid
         Property biomeProp = config.get("general", "BiomeID", 47);
         biomeProp.comment = "The Mining Biome will have this ID.";
-        miningworld.biomeID = biomeProp.getInt(47);
+        biomeID = biomeProp.getInt(47);
+        //spawnmonsters, bool
         Property spawnMonstersProp = config.get("general", "spawnMonsters", false);
         spawnMonstersProp.comment = "If Monsters Spawn in the Mining World.";
-        miningworld.spawnMonsters = spawnMonstersProp.getBoolean(false);
+        spawnMonsters = spawnMonstersProp.getBoolean(false);
+        //spawnanimals bool
         Property spawnAnimalsProp = config.get("general", "spawnAnimals", false);
         spawnAnimalsProp.comment = "If Animals spawn in the Mining World.";
-        miningworld.spawnAnimals = spawnAnimalsProp.getBoolean(false);
+        spawnAnimals = spawnAnimalsProp.getBoolean(false);
+        //worldgen height int -> double
         Property worldheight = config.get("general", "worldheight", 256);
-        worldheight.comment = "Set the world height for the mining dimension";
-        miningworld.height = worldheight.getInt();
-        Property inner = config.get("general", "blockid", 5);
+        worldheight.comment = "Set the worldgen height for the mining dimension";
+        height = worldheight.getInt();
+        //inner portal block id
+        Property inner = config.get("general", "blockid", 422);
         inner.comment = "Set the inner blocks in the portal for the mining dimension";
-        miningworld.blockid = inner.getInt();
+        portal = 422;
+        //portal frame id
         Property outer = config.get("general", "blockid2", 57);
         outer.comment = "Set the outer blocks in the portal for the mining dimension";
-        miningworld.blockid2 = outer.getInt();
+        frame = 57;
+        
         config.save();
     }
 }

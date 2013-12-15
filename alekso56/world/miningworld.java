@@ -1,81 +1,62 @@
 package alekso56.world;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
 import net.minecraft.block.Block;
-import net.minecraft.command.ICommandSender;
-import net.minecraft.command.PlayerSelector;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldType;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.DimensionManager;
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLInterModComms;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.event.FMLServerAboutToStartEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 
 @Mod(modid = "alekso56's miningworld", name = "alekso56's miningworld", version = "1.3")
 @NetworkMod(clientSideRequired = false, serverSideRequired = true)
-public class miningworld
-{
-    @Mod.Instance("alekso56's miningworld")
+public class miningworld {
+	@Mod.Instance("alekso56's miningworld")
     public static miningworld instancez;
-    public static int dimension;
-    public static int biomeID;
-    public static boolean spawnMonsters;
-    public static boolean spawnAnimals;
-    public static double height;
-    public static int maxGenHeight;
     public static BiomeGenMining miningBiome;
-    public static int blockid;
-    public static int blockid2;
-    public static innerportalblock protals = (innerportalblock)new innerportalblock(blockid).setUnlocalizedName("alekso56:miningportal");
+    public static alekso56.world.innerportalblock innerportalblockz = new innerportalblock(422);
+    public static Item portalcreator = new portalcreatorItem(2000);
     @Mod.EventHandler
-    public void preInit(FMLPreInitializationEvent event)
-    {
+    public void preInit(FMLPreInitializationEvent event) {
         config.loadConfig(new Configuration(event.getSuggestedConfigurationFile()));
     }
     
     @Mod.EventHandler
-    public void clientcrap(FMLInitializationEvent event){
-    	 GameRegistry.registerBlock(protals, "miningportal");
+    public void load(FMLInitializationEvent event)
+    {
+    	GameRegistry.registerItem(portalcreator, "TutorialPortalPlacer");
+    	GameRegistry.registerBlock(innerportalblockz, "MiningPortal");
+        //System.out.println("registered miningportal as "+blockid);
+        miningBiome = new BiomeGenMining(config.biomeID);
+        if (DimensionManager.isDimensionRegistered(config.dimension)) {
+            System.out.println("Failed to register the Mining Dimension with the ID " + config.dimension + ". Please pick another one!");
+        } else {
+            DimensionManager.registerProviderType(config.dimension, Worldmining.class, false);
+            DimensionManager.registerDimension(config.dimension, config.dimension);
+            FMLInterModComms.sendMessage("BuildCraft|Energy", "oil-gen-exclude", miningBiome.biomeID + "");
+            BiomeManager.addStrongholdBiome(miningBiome);
+            BiomeDictionary.registerBiomeType(miningBiome, new BiomeDictionary.Type[] {
+                BiomeDictionary.Type.MOUNTAIN
+            });
+            miningBiome.clearMonsters();
+            //System.out.println("Loaded.");
+            //System.out.println("Dimension registered with ID: " + dimension + ".");
+        }
     }
 
     @Mod.EventHandler
-    public void serverLoad(FMLServerStartingEvent event)
-    {
-        event.registerServerCommand(new portalactivator());
-        miningBiome = new BiomeGenMining(biomeID);
-        if (DimensionManager.isDimensionRegistered(dimension))
-        {
-            System.out.println("Failed to register the Mining Dimension with the ID " + dimension + ". Please pick another one!");
-        }
-        else{
-        DimensionManager.registerProviderType(dimension, Worldmining.class, false);
-        DimensionManager.registerDimension(dimension, dimension);
-        FMLInterModComms.sendMessage("BuildCraft|Energy", "oil-gen-exclude", miningBiome.biomeID + "");
-        BiomeManager.addStrongholdBiome(miningBiome);
-        BiomeDictionary.registerBiomeType(miningBiome, new BiomeDictionary.Type[] { BiomeDictionary.Type.MOUNTAIN });
-        miningBiome.clearMonsters();
-        //System.out.println("Loaded.");
-        //System.out.println("Dimension registered with ID: " + dimension + ".");
-        }
+    public void serverLoad(FMLServerStartingEvent event) {
+    	event.registerServerCommand(new portalactivator());
     }
-    
+
     static double SeaLevelScale = 0.5D;
     static int CPGNoiseGen1Octaves = 16;
     static int CPGNoiseGen2Octaves = 16;
@@ -93,8 +74,8 @@ public class miningworld
     static double CPGReplaceStoneNoiseScale = 0.03125D;
     static double CPGReplaceStoneNoiseDivisor = 3D;
     static double CPGReplaceStoneNoiseAdd = 3D;
-    static double CPGReplaceStoneNoiseRandScale = miningworld.height;
-    static int CPGReplaceBedrockChance = 5;
+    static double CPGReplaceStoneNoiseRandScale = config.height;
+    static int CPGReplaceBedrockChance = 0; // flat bedrock set? meh, me luv flat bedrock
     static byte CPGReplaceBedrockID = (byte) Block.bedrock.blockID;
     static int CPGBedrockMode = 0;
     static int CPGReplaceColumnSkipID = (byte) Block.stone.blockID;
@@ -110,7 +91,7 @@ public class miningworld
     static long CPGProvideZSeedMult = 0x1ef1565bd5L;
     static double CPGInitNoiseXZMajorScale = 684.41200000000003D; //Terrain Noise Scaling Parameters
     static double CPGInitNoiseYMajorScale = 684.41200000000003D;
-    static double CPGInitNoiseXMidScale = 200D; 
+    static double CPGInitNoiseXMidScale = 200D;
     static double CPGInitNoiseZMidScale = 200D;
     static double CPGInitNoiseYMidScale = 0.5D;
     static double CPGInitNoiseXSlopeDiv = 80D; //Terrain Noise Interpolation Parameters
@@ -145,7 +126,7 @@ public class miningworld
     static double CPGInitNoiseD3BlockScale = 4D;
     static double CPGInitNoiseD7ClampFactor = 4D;
     static double CPGInitNoiseD7HeightScale = 12D;
-    static double CPGInitNoiseD7HeightTotal = miningworld.height;
+    static double CPGInitNoiseD7HeightTotal = config.height;
     static float CPGInitNoiseSolidFloorFactor = 0.1F;
     static float CPGInitNoiseMidDenom = 8000F;
     static double CPGInitNoiseHeightLimitDenom = 3D;

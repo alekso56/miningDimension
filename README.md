@@ -1,5 +1,9 @@
 miningDimension
 ===============
 
-This mod is an attempt at replacing mystcraft on the server,  currently it needs
-an portal kind of thing to jump into.
+This mod was made to replace mystcraft on TK
+
+TODO;
+===
+* fix portal creation detectorss
+

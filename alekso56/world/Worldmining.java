@@ -71,6 +71,6 @@ public class Worldmining extends WorldProviderSurface
     public void registerWorldChunkManager()
     {
         this.worldChunkMgr = new WorldChunkManagerHell(miningworld.miningBiome, 0.5F, 0.0F);
-        this.dimensionId = miningworld.dimension;
+        this.dimensionId = config.dimension;
     }
 }
