@@ -1,14 +1,26 @@
 package alekso56.world;
 
-import net.minecraft.world.WorldProvider;
+import net.minecraft.world.WorldProviderSurface;
 import net.minecraft.world.biome.WorldChunkManagerHell;
 import net.minecraft.world.chunk.IChunkProvider;
 
-public class Worldmining extends WorldProvider
+public class Worldmining extends WorldProviderSurface
 {
     public boolean canRespawnHere()
     {
-        return false;
+        return true;
+    }
+    
+    @Override
+    public String getWelcomeMessage()
+    {
+            return "broke into the mining world.";
+    }
+    
+    @Override
+    public String getDepartMessage()
+    {
+            return "left da mining unfinished";
     }
 
     public IChunkProvider createChunkGenerator()

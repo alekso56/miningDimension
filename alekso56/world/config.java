@@ -19,6 +19,15 @@ public class config
         Property spawnAnimalsProp = config.get("general", "spawnAnimals", false);
         spawnAnimalsProp.comment = "If Animals spawn in the Mining World.";
         miningworld.spawnAnimals = spawnAnimalsProp.getBoolean(false);
+        Property worldheight = config.get("general", "worldheight", 256);
+        worldheight.comment = "Set the world height for the mining dimension";
+        miningworld.height = worldheight.getInt();
+        Property inner = config.get("general", "blockid", 5);
+        inner.comment = "Set the inner blocks in the portal for the mining dimension";
+        miningworld.blockid = inner.getInt();
+        Property outer = config.get("general", "blockid2", 57);
+        outer.comment = "Set the outer blocks in the portal for the mining dimension";
+        miningworld.blockid2 = outer.getInt();
         config.save();
     }
 }

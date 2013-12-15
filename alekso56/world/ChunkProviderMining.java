@@ -96,8 +96,7 @@ public class ChunkProviderMining implements IChunkProvider
         }
         else
         {
-            WorldChunkManager worldchunkmanager = new WorldChunkManager(
-                genSeed, miningworld.superCustom);
+            WorldChunkManager worldchunkmanager = new WorldChunkManager(genSeed, null);
             biomesForGeneration = worldchunkmanager.getBiomesForGeneration(
                                       biomesForGeneration, i * 4 - 2, j * 4 - 2, l + 5, i1 + 5);
         }
@@ -722,14 +721,12 @@ public class ChunkProviderMining implements IChunkProvider
     @Override
     public boolean unloadQueuedChunks()
     {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public int getLoadedChunkCount()
     {
-        // TODO Auto-generated method stub
         return 0;
     }
 
@@ -749,9 +746,7 @@ public class ChunkProviderMining implements IChunkProvider
         }
     }
 
-    @Override
     public void saveExtraData()
     {
-        // TODO Auto-generated method stub
     }
 }

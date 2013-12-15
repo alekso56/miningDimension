@@ -41,10 +41,6 @@ public class portalactivator extends CommandBase
     public void processCommand(ICommandSender icommandsender, String[] astring)
     {
     	EntityPlayerMP playermp = null;
-    	if (astring.length < 2)
-        {
-            throw new WrongUsageException("Playername <letter o for overworld or something else for miningworld>", new Object[0]);
-        }
 
         if (astring.length != 2 && astring.length != 4)
         {
@@ -59,9 +55,13 @@ public class portalactivator extends CommandBase
                 throw new PlayerNotFoundException();
             }
         }
+    	if (astring.length < 2 && playermp != null)
+        {
+            throw new WrongUsageException("Playername <letter o for overworld or something else for miningworld>", new Object[0]);
+        }
         if (playermp.dimension != miningworld.dimension && !astring[1].equalsIgnoreCase("o"))
         {
-            MinecraftServer.getServer().getConfigurationManager().transferPlayerToDimension(playermp, miningworld.dimension);
+            MinecraftServer.getServer().getConfigurationManager().transferPlayerToDimension(playermp, miningworld.dimension,new Portal(playermp.mcServer.worldServerForDimension(miningworld.dimension)));
            // System.out.println("transfer mining");
         }
         else if (astring[1].equalsIgnoreCase("o") && playermp.dimension != 0)
