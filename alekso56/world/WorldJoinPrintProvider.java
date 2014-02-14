@@ -4,7 +4,7 @@ import net.minecraft.world.WorldProviderSurface;
 import net.minecraft.world.biome.WorldChunkManagerHell;
 import net.minecraft.world.chunk.IChunkProvider;
 
-public class Worldmining extends WorldProviderSurface
+public class WorldJoinPrintProvider extends WorldProviderSurface
 {
     public boolean canRespawnHere()
     {
@@ -70,7 +70,7 @@ public class Worldmining extends WorldProviderSurface
 
     public void registerWorldChunkManager()
     {
-        this.worldChunkMgr = new WorldChunkManagerHell(miningworld.miningBiome, 0.5F, 0.0F);
+        this.worldChunkMgr = new WorldChunkManagerHell(MiningWorld.miningBiome, 0.5F, 0.0F);
         this.dimensionId = config.dimension;
     }
 }

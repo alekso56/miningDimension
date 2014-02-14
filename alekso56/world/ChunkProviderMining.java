@@ -66,21 +66,21 @@ public class ChunkProviderMining implements IChunkProvider {
         rand = new Random(l);
         genSeed = l;
         noiseGen1 = new NoiseGeneratorOctaves(rand,
-            miningworld.CPGNoiseGen1Octaves);
+            MiningWorld.CPGNoiseGen1Octaves);
         noiseGen2 = new NoiseGeneratorOctaves(rand,
-            miningworld.CPGNoiseGen2Octaves);
+            MiningWorld.CPGNoiseGen2Octaves);
         noiseGen3 = new NoiseGeneratorOctaves(rand,
-            miningworld.CPGNoiseGen3Octaves);
+            MiningWorld.CPGNoiseGen3Octaves);
         noiseGen4 = new NoiseGeneratorOctaves(rand,
-            miningworld.CPGNoiseGen4Octaves);
+            MiningWorld.CPGNoiseGen4Octaves);
         noiseGen6 = new NoiseGeneratorOctaves(rand,
-            miningworld.CPGNoiseGen6Octaves);
+            MiningWorld.CPGNoiseGen6Octaves);
     }
 
     public void generateTerrain(int i, int j, byte abyte0[], boolean flag) {
         byte byte0 = 4;
         byte byte1 = 32;
-        int k = (int)(127D * miningworld.SeaLevelScale);
+        int k = (int)(127D * MiningWorld.SeaLevelScale);
         int l = byte0 + 1;
         byte byte2 = 33;
         int i1 = byte0 + 1;
@@ -101,7 +101,7 @@ public class ChunkProviderMining implements IChunkProvider {
         for (int j1 = 0; j1 < byte0; j1++) {
             for (int k1 = 0; k1 < byte0; k1++) {
                 for (int l1 = 0; l1 < byte1; l1++) {
-                    double d = miningworld.CPGGenTerrainYFactor;
+                    double d = MiningWorld.CPGGenTerrainYFactor;
                     double d1 = noiseArray[((j1 + 0) * i1 + (k1 + 0)) * byte2 + (l1 + 0)];
                     double d2 = noiseArray[((j1 + 0) * i1 + (k1 + 1)) * byte2 + (l1 + 0)];
                     double d3 = noiseArray[((j1 + 1) * i1 + (k1 + 0)) * byte2 + (l1 + 0)];
@@ -112,7 +112,7 @@ public class ChunkProviderMining implements IChunkProvider {
                     double d8 = (noiseArray[((j1 + 1) * i1 + (k1 + 1)) * byte2 + (l1 + 1)] - d4) * d;
 
                     for (int i2 = 0; i2 < 8; i2++) {
-                        double d9 = miningworld.CPGGenTerrainXZFactor1;
+                        double d9 = MiningWorld.CPGGenTerrainXZFactor1;
                         double d10 = d1;
                         double d11 = d2;
                         double d12 = (d3 - d1) * d9;
@@ -122,19 +122,19 @@ public class ChunkProviderMining implements IChunkProvider {
                             int k2 = j2 + j1 * 4 << 12 | 0 + k1 * 4 << 8 | l1 * 8 + i2;
                             char c = 256;
                             k2 -= c;
-                            double d14 = miningworld.CPGGenTerrainXZFactor2;
+                            double d14 = MiningWorld.CPGGenTerrainXZFactor2;
                             double d15 = d10;
                             double d16 = (d11 - d10) * d14;
                             d15 -= d16;
 
                             for (int l2 = 0; l2 < 4; l2++) {
-                                if ((d15 += d16) > miningworld.CPGGenTerrainSolidCutoff) {
-                                    abyte0[k2 += c] = miningworld.CPGGenTerrainDefaultFillID;
+                                if ((d15 += d16) > MiningWorld.CPGGenTerrainSolidCutoff) {
+                                    abyte0[k2 += c] = MiningWorld.CPGGenTerrainDefaultFillID;
                                     continue;
                                 }
 
                                 if (l1 * 8 + i2 < k) {
-                                    abyte0[k2 += c] = miningworld.CPGGenTerrainSeaLevelFillID;
+                                    abyte0[k2 += c] = MiningWorld.CPGGenTerrainSeaLevelFillID;
                                 } else {
                                     abyte0[k2 += c] = 0;
                                 }
@@ -156,8 +156,8 @@ public class ChunkProviderMining implements IChunkProvider {
 
     public void replaceBlocksForBiome(int i, int j, byte abyte0[],
         BiomeGenBase abiomegenbase[]) {
-        int k = (int)(127D * miningworld.SeaLevelScale);
-        double d = miningworld.CPGReplaceStoneNoiseScale;
+        int k = (int)(127D * MiningWorld.SeaLevelScale);
+        double d = MiningWorld.CPGReplaceStoneNoiseScale;
         stoneNoise = noiseGen4.generateNoiseOctaves(stoneNoise, i * 16, j * 16,
             0, 16, 16, 1, d * 2D, d * 2D, d * 2D);
 
@@ -165,8 +165,8 @@ public class ChunkProviderMining implements IChunkProvider {
             for (int i1 = 0; i1 < 16; i1++) {
                 BiomeGenBase biomegenbase = abiomegenbase[i1 + l * 16];
                 float f = biomegenbase.getFloatTemperature();
-                int j1 = (int)(stoneNoise[l + i1 * 16] / miningworld.CPGReplaceStoneNoiseDivisor + miningworld.CPGReplaceStoneNoiseAdd + rand
-                    .nextDouble() * miningworld.CPGReplaceStoneNoiseRandScale);
+                int j1 = (int)(stoneNoise[l + i1 * 16] / MiningWorld.CPGReplaceStoneNoiseDivisor + MiningWorld.CPGReplaceStoneNoiseAdd + rand
+                    .nextDouble() * MiningWorld.CPGReplaceStoneNoiseRandScale);
                 int k1 = -1;
                 byte byte0 = biomegenbase.topBlock;
                 byte byte1 = biomegenbase.fillerBlock;
@@ -174,8 +174,8 @@ public class ChunkProviderMining implements IChunkProvider {
                 for (int l1 = 255; l1 >= 0; l1--) {
                     int i2 = (i1 * 16 + l) * 256 + l1;
 
-                    if (l1 <= 0 + rand.nextInt(miningworld.CPGReplaceBedrockChance)) {
-                        abyte0[i2] = miningworld.CPGReplaceBedrockID;
+                    if (l1 <= 0 + rand.nextInt(MiningWorld.CPGReplaceBedrockChance)) {
+                        abyte0[i2] = MiningWorld.CPGReplaceBedrockID;
                         continue;
                     }
 
@@ -186,24 +186,24 @@ public class ChunkProviderMining implements IChunkProvider {
                         continue;
                     }
 
-                    if (byte2 != miningworld.CPGReplaceColumnSkipID) {
+                    if (byte2 != MiningWorld.CPGReplaceColumnSkipID) {
                         continue;
                     }
 
                     if (k1 == -1) {
                         if (j1 <= 0) {
                             byte0 = 0;
-                            byte1 = miningworld.CPGReplaceDefaultFillID;
+                            byte1 = MiningWorld.CPGReplaceDefaultFillID;
                         } else if (l1 >= k - 4 && l1 <= k + 1) {
                             byte0 = biomegenbase.topBlock;
                             byte1 = biomegenbase.fillerBlock;
                         }
 
                         if (l1 < k && byte0 == 0) {
-                            if (miningworld.CPGReplaceIceTempCompareLess ? f < miningworld.CPGReplaceIceTempCutoff : f >= miningworld.CPGReplaceIceTempCutoff) {
-                                byte0 = miningworld.CPGReplaceIceID;
+                            if (MiningWorld.CPGReplaceIceTempCompareLess ? f < MiningWorld.CPGReplaceIceTempCutoff : f >= MiningWorld.CPGReplaceIceTempCutoff) {
+                                byte0 = MiningWorld.CPGReplaceIceID;
                             } else {
-                                byte0 = miningworld.CPGReplaceWaterID;
+                                byte0 = MiningWorld.CPGReplaceWaterID;
                             }
                         }
 
@@ -225,10 +225,10 @@ public class ChunkProviderMining implements IChunkProvider {
                     k1--;
                     abyte0[i2] = byte1;
 
-                    if (k1 == 0 && byte1 == miningworld.CPGReplaceSandFillID) {
+                    if (k1 == 0 && byte1 == MiningWorld.CPGReplaceSandFillID) {
                         k1 = rand
-                            .nextInt(miningworld.CPGReplaceSandSupportRollChance);
-                        byte1 = miningworld.CPGReplaceSandSupportID;
+                            .nextInt(MiningWorld.CPGReplaceSandSupportRollChance);
+                        byte1 = MiningWorld.CPGReplaceSandSupportID;
                     }
                 }
             }
@@ -318,21 +318,21 @@ public class ChunkProviderMining implements IChunkProvider {
 
             for (int k1 = -2; k1 <= 2; k1++) {
                 for (int l1 = -2; l1 <= 2; l1++) {
-                    float f = miningworld.CPGInitNoiseBiomeNumerator / MathHelper.sqrt_float((float)(k1 * k1 + l1 * l1) + miningworld.CPGInitNoiseBiomeAdd);
+                    float f = MiningWorld.CPGInitNoiseBiomeNumerator / MathHelper.sqrt_float((float)(k1 * k1 + l1 * l1) + MiningWorld.CPGInitNoiseBiomeAdd);
                     field_35388_l[k1 + 2 + (l1 + 2) * 5] = f;
                 }
             }
         }
 
-        double d = miningworld.CPGInitNoiseXZMajorScale;
-        double d1 = miningworld.CPGInitNoiseYMajorScale;
+        double d = MiningWorld.CPGInitNoiseXZMajorScale;
+        double d1 = MiningWorld.CPGInitNoiseYMajorScale;
         noise6 = noiseGen6.generateNoiseOctaves(noise6, i, k, l, j1,
-            miningworld.CPGInitNoiseXMidScale,
-            miningworld.CPGInitNoiseZMidScale,
-            miningworld.CPGInitNoiseYMidScale);
-        noise3 = noiseGen3.generateNoiseOctaves(noise3, i, j, k, l, i1, j1, d / miningworld.CPGInitNoiseXSlopeDiv, d1 / miningworld.CPGInitNoiseYSlopeDiv, d / miningworld.CPGInitNoiseZSlopeDiv);
-        noise1 = noiseGen1.generateNoiseOctaves(noise1, i, j, k, l, i1, j1, d * miningworld.CPGInitNoiseXLowerScale, d1 * miningworld.CPGInitNoiseYLowerScale, d * miningworld.CPGInitNoiseZLowerScale);
-        noise2 = noiseGen2.generateNoiseOctaves(noise2, i, j, k, l, i1, j1, d * miningworld.CPGInitNoiseXUpperScale, d1 * miningworld.CPGInitNoiseYUpperScale, d * miningworld.CPGInitNoiseZUpperScale);
+            MiningWorld.CPGInitNoiseXMidScale,
+            MiningWorld.CPGInitNoiseZMidScale,
+            MiningWorld.CPGInitNoiseYMidScale);
+        noise3 = noiseGen3.generateNoiseOctaves(noise3, i, j, k, l, i1, j1, d / MiningWorld.CPGInitNoiseXSlopeDiv, d1 / MiningWorld.CPGInitNoiseYSlopeDiv, d / MiningWorld.CPGInitNoiseZSlopeDiv);
+        noise1 = noiseGen1.generateNoiseOctaves(noise1, i, j, k, l, i1, j1, d * MiningWorld.CPGInitNoiseXLowerScale, d1 * MiningWorld.CPGInitNoiseYLowerScale, d * MiningWorld.CPGInitNoiseZLowerScale);
+        noise2 = noiseGen2.generateNoiseOctaves(noise2, i, j, k, l, i1, j1, d * MiningWorld.CPGInitNoiseXUpperScale, d1 * MiningWorld.CPGInitNoiseYUpperScale, d * MiningWorld.CPGInitNoiseZUpperScale);
         i = k = 0;
         int i2 = 0;
         int j2 = 0;
@@ -348,10 +348,10 @@ public class ChunkProviderMining implements IChunkProvider {
                 for (int i3 = -byte0; i3 <= byte0; i3++) {
                     for (int j3 = -byte0; j3 <= byte0; j3++) {
                         BiomeGenBase biomegenbase1 = biomesForGeneration[k2 + i3 + 2 + (l2 + j3 + 2) * (l + 5)];
-                        float f4 = field_35388_l[i3 + 2 + (j3 + 2) * 5] / (biomegenbase1.minHeight + miningworld.CPGInitNoiseBiomeMinHeightBump);
+                        float f4 = field_35388_l[i3 + 2 + (j3 + 2) * 5] / (biomegenbase1.minHeight + MiningWorld.CPGInitNoiseBiomeMinHeightBump);
 
                         if (biomegenbase1.minHeight > biomegenbase.minHeight) {
-                            f4 /= miningworld.CPGInitNoiseBiomeInterpFactor;
+                            f4 /= MiningWorld.CPGInitNoiseBiomeInterpFactor;
                         }
 
                         f1 += biomegenbase1.maxHeight * f4;
@@ -362,30 +362,30 @@ public class ChunkProviderMining implements IChunkProvider {
 
                 f1 /= f3;
                 f2 /= f3;
-                f1 = f1 * (1.0F - miningworld.CPGInitNoiseSolidFloorFactor) + miningworld.CPGInitNoiseSolidFloorFactor;
-                f2 = (f2 * miningworld.CPGInitNoiseF2Scale - miningworld.CPGInitNoiseF2Sub) / miningworld.CPGInitNoiseF2Denom;
-                double d2 = noise6[j2] / (double) miningworld.CPGInitNoiseMidDenom;
+                f1 = f1 * (1.0F - MiningWorld.CPGInitNoiseSolidFloorFactor) + MiningWorld.CPGInitNoiseSolidFloorFactor;
+                f2 = (f2 * MiningWorld.CPGInitNoiseF2Scale - MiningWorld.CPGInitNoiseF2Sub) / MiningWorld.CPGInitNoiseF2Denom;
+                double d2 = noise6[j2] / (double) MiningWorld.CPGInitNoiseMidDenom;
 
                 if (d2 < 0.0D) {
-                    d2 = -d2 * miningworld.CPGInitNoiseD2ReverseFactor;
+                    d2 = -d2 * MiningWorld.CPGInitNoiseD2ReverseFactor;
                 }
 
-                d2 = d2 * miningworld.CPGInitNoiseD2Scale - miningworld.CPGInitNoiseD2Subtract;
+                d2 = d2 * MiningWorld.CPGInitNoiseD2Scale - MiningWorld.CPGInitNoiseD2Subtract;
 
                 if (d2 < 0.0D) {
-                    d2 /= miningworld.CPGInitNoiseD2PreClampScale;
+                    d2 /= MiningWorld.CPGInitNoiseD2PreClampScale;
 
                     if (d2 < -1D) {
                         d2 = -1D;
                     }
 
-                    d2 /= miningworld.CPGInitNoiseD2PostClampScale;
+                    d2 /= MiningWorld.CPGInitNoiseD2PostClampScale;
                 } else {
                     if (d2 > 1.0D) {
                         d2 = 1.0D;
                     }
 
-                    d2 /= miningworld.CPGInitNoiseD2NonClampScale;
+                    d2 /= MiningWorld.CPGInitNoiseD2NonClampScale;
                 }
 
                 j2++;
@@ -393,19 +393,19 @@ public class ChunkProviderMining implements IChunkProvider {
                 for (int k3 = 0; k3 < i1; k3++) {
                     double d3 = f2;
                     double d4 = f1;
-                    d3 += d2 * miningworld.CPGInitNoiseD2FinalScale;
-                    d3 = (d3 * (double) i1) / miningworld.CPGInitNoiseD3HeightFactor;
-                    double d5 = (double) i1 / 2D + d3 * miningworld.CPGInitNoiseD3BlockScale;
+                    d3 += d2 * MiningWorld.CPGInitNoiseD2FinalScale;
+                    d3 = (d3 * (double) i1) / MiningWorld.CPGInitNoiseD3HeightFactor;
+                    double d5 = (double) i1 / 2D + d3 * MiningWorld.CPGInitNoiseD3BlockScale;
                     double d6 = 0.0D;
-                    double d7 = (((double) k3 - d5) * miningworld.CPGInitNoiseD7HeightScale * miningworld.CPGInitNoiseD7HeightTotal) / 256D / d4;
+                    double d7 = (((double) k3 - d5) * MiningWorld.CPGInitNoiseD7HeightScale * MiningWorld.CPGInitNoiseD7HeightTotal) / 256D / d4;
 
                     if (d7 < 0.0D) {
-                        d7 *= miningworld.CPGInitNoiseD7ClampFactor;
+                        d7 *= MiningWorld.CPGInitNoiseD7ClampFactor;
                     }
 
-                    double d8 = noise1[i2] / miningworld.CPGInitNoiseLowerDenom;
-                    double d9 = noise2[i2] / miningworld.CPGInitNoiseUpperDenom;
-                    double d10 = (noise3[i2] / miningworld.CPGInitNoiseSlopeDenom + miningworld.CPGInitNoiseSlopeAdd) * miningworld.CPGInitNoiseSlopeScale;
+                    double d8 = noise1[i2] / MiningWorld.CPGInitNoiseLowerDenom;
+                    double d9 = noise2[i2] / MiningWorld.CPGInitNoiseUpperDenom;
+                    double d10 = (noise3[i2] / MiningWorld.CPGInitNoiseSlopeDenom + MiningWorld.CPGInitNoiseSlopeAdd) * MiningWorld.CPGInitNoiseSlopeScale;
 
                     if (d10 < 0.0D) {
                         d6 = d8;
@@ -418,8 +418,8 @@ public class ChunkProviderMining implements IChunkProvider {
                     d6 -= d7;
 
                     if (k3 > i1 - 4) {
-                        double d11 = (double)(float)(k3 - (i1 - 4)) / miningworld.CPGInitNoiseHeightLimitDenom;
-                        d6 = d6 * (1.0D - d11) + miningworld.CPGInitNoiseHeightLimitRoundoff * d11;
+                        double d11 = (double)(float)(k3 - (i1 - 4)) / MiningWorld.CPGInitNoiseHeightLimitDenom;
+                        d6 = d6 * (1.0D - d11) + MiningWorld.CPGInitNoiseHeightLimitRoundoff * d11;
                     }
 
                     ad[i2] = d6;
@@ -462,29 +462,29 @@ public class ChunkProviderMining implements IChunkProvider {
                 i, j);
         }
 
-        if (!flag && rand.nextInt(miningworld.CPGPopulateLakeChance) == 0) {
+        if (!flag && rand.nextInt(MiningWorld.CPGPopulateLakeChance) == 0) {
             int i1 = k + rand.nextInt(16) + 8;
-            int j2 = miningworld.CPGPopulateLakeYMin + rand.nextInt(miningworld.CPGPopulateLakeYRange);
+            int j2 = MiningWorld.CPGPopulateLakeYMin + rand.nextInt(MiningWorld.CPGPopulateLakeYRange);
             int k3 = l + rand.nextInt(16) + 8;
-            (new WorldGenLakes(miningworld.CPGPopulateLakeID)).generate(
+            (new WorldGenLakes(MiningWorld.CPGPopulateLakeID)).generate(
                 worldObj, rand, i1, j2, k3);
         }
 
-        if (!flag && rand.nextInt(miningworld.CPGPopulateLavaChance) == 0) {
+        if (!flag && rand.nextInt(MiningWorld.CPGPopulateLavaChance) == 0) {
             int j1 = k + rand.nextInt(16) + 8;
-            int k2 = miningworld.CPGPopulateLavaYMin + rand.nextInt(rand
-                .nextInt(miningworld.CPGPopulateLavaYRange - 8) + 8);
+            int k2 = MiningWorld.CPGPopulateLavaYMin + rand.nextInt(rand
+                .nextInt(MiningWorld.CPGPopulateLavaYRange - 8) + 8);
             int l3 = l + rand.nextInt(16) + 8;
 
-            if (k2 < (int)(256D * miningworld.SeaLevelScale) || rand.nextInt(miningworld.CPGPopulateAboveGroundLavaChance) == 0) {
-                (new WorldGenLakes(miningworld.CPGPopulateLavaID)).generate(
+            if (k2 < (int)(256D * MiningWorld.SeaLevelScale) || rand.nextInt(MiningWorld.CPGPopulateAboveGroundLavaChance) == 0) {
+                (new WorldGenLakes(MiningWorld.CPGPopulateLavaID)).generate(
                     worldObj, rand, j1, k2, l3);
             }
         }
 
-        for (int k1 = 0; k1 < miningworld.CPGPopulateDungeonCount; k1++) {
+        for (int k1 = 0; k1 < MiningWorld.CPGPopulateDungeonCount; k1++) {
             int i3 = k + rand.nextInt(16) + 8;
-            int i4 = miningworld.CPGPopulateDungeonYMin + rand.nextInt(miningworld.CPGPopulateDungeonYRange);
+            int i4 = MiningWorld.CPGPopulateDungeonYMin + rand.nextInt(MiningWorld.CPGPopulateDungeonYRange);
             int k4 = l + rand.nextInt(16) + 8;
 
             if ((new WorldGenDungeons()).generate(worldObj, rand, i3, i4, k4))

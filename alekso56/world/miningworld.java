@@ -2,7 +2,6 @@ package alekso56.world;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.Configuration;
@@ -14,16 +13,15 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 
 @Mod(modid = "alekso56's miningworld", name = "alekso56's miningworld", version = "1.3")
 @NetworkMod(clientSideRequired = false, serverSideRequired = true)
-public class miningworld {
+public class MiningWorld {
 	@Mod.Instance("alekso56's miningworld")
-    public static miningworld instancez;
+    public static MiningWorld instancez;
     public static BiomeGenMining miningBiome;
     public static alekso56.world.innerportalblock innerportalblockz = new innerportalblock(422);
-    public static Item portalcreator = new portalcreatorItem(2000);
+    public static Item portalcreator = new portalcreatorItem(2045);
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         config.loadConfig(new Configuration(event.getSuggestedConfigurationFile()));
@@ -39,7 +37,7 @@ public class miningworld {
         if (DimensionManager.isDimensionRegistered(config.dimension)) {
             System.out.println("Failed to register the Mining Dimension with the ID " + config.dimension + ". Please pick another one!");
         } else {
-            DimensionManager.registerProviderType(config.dimension, Worldmining.class, false);
+            DimensionManager.registerProviderType(config.dimension, WorldJoinPrintProvider.class, false);
             DimensionManager.registerDimension(config.dimension, config.dimension);
             FMLInterModComms.sendMessage("BuildCraft|Energy", "oil-gen-exclude", miningBiome.biomeID + "");
             BiomeManager.addStrongholdBiome(miningBiome);
@@ -75,7 +73,7 @@ public class miningworld {
     static double CPGReplaceStoneNoiseDivisor = 3D;
     static double CPGReplaceStoneNoiseAdd = 3D;
     static double CPGReplaceStoneNoiseRandScale = config.height;
-    static int CPGReplaceBedrockChance = 0; // flat bedrock set? meh, me luv flat bedrock
+    static int CPGReplaceBedrockChance = 1; // flat bedrock set? meh, me luv flat bedrock
     static byte CPGReplaceBedrockID = (byte) Block.bedrock.blockID;
     static int CPGBedrockMode = 0;
     static int CPGReplaceColumnSkipID = (byte) Block.stone.blockID;

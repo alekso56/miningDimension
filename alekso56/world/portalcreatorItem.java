@@ -1,9 +1,6 @@
 package alekso56.world;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-import net.minecraft.block.Block;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -12,10 +9,14 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 public class portalcreatorItem extends Item
 {
-        public portalcreatorItem(int par1)
+        public portalcreatorItem(int id)
         {
-                super(par1);
+                super(id);
+                setMaxStackSize(1);
+        		setNoRepair();
                 setCreativeTab(CreativeTabs.tabTools);
+                setUnlocalizedName("PortalCItem");
+                setTextureName("alekso56:"+getUnlocalizedName());
         }
         public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int X, int Y, int Z, int par7, float par8, float par9, float par10)
         {
@@ -83,9 +84,8 @@ public class portalcreatorItem extends Item
                 return true;
         }
         
-        @SideOnly(Side.CLIENT)
-    protected String func_111208_A() 
+        public void registerIcons(IconRegister par1IconRegister)
         {
-                return "alekso56" + ":" + getUnlocalizedName();
+            this.itemIcon = par1IconRegister.registerIcon("alekso56:"+this.getUnlocalizedName());
         }
 }

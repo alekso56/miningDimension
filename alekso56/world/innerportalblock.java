@@ -4,11 +4,9 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBreakable;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemMonsterPlacer;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -17,7 +15,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class innerportalblock extends BlockBreakable {
     public innerportalblock(int id) {
-        super(id,"alekso56:miningportal",Material.portal, false);
+        super(id,"alekso56:miningportal",Material.web, false);
         this.setUnlocalizedName("miningportal");
         this.setTickRandomly(true);
         this.setHardness(-1.0F);
@@ -81,7 +79,7 @@ public class innerportalblock extends BlockBreakable {
      */
     @Override
     public boolean renderAsNormalBlock() {
-        return false;
+        return true;
     }
     /**
      * Checks to see if this location is valid to create a portal and will return True if it does. Args: world, x, y, z
@@ -125,42 +123,6 @@ public class innerportalblock extends BlockBreakable {
                 }
             }
             return true;
-        }
-    }
-    
-    /**
-     * Lets the block know when one of its neighbor changes. Doesn't know which neighbor changed (coordinates passed are
-     * their own) Args: x, y, z, neighbor blockID
-     */
-    public void onNeighborBlockChange(World par1World, int par2, int par3, int par4, int par5) {
-        byte b0 = 0;
-        byte b1 = 1;
-        if (par1World.getBlockId(par2 - 1, par3, par4) == this.blockID || par1World.getBlockId(par2 + 1, par3, par4) == this.blockID) {
-            b0 = 1;
-            b1 = 0;
-        }
-        int i1;
-        for (i1 = par3; par1World.getBlockId(par2, i1 - 1, par4) == this.blockID; --i1) {;
-        }
-        if (par1World.getBlockId(par2, i1 - 1, par4) != config.frame) {
-            par1World.setBlockToAir(par2, par3, par4);
-        } else {
-            int j1;
-            for (j1 = 1; j1 < 4 && par1World.getBlockId(par2, i1 + j1, par4) == this.blockID; ++j1) {;
-            }
-            if (j1 == 3 && par1World.getBlockId(par2, i1 + j1, par4) == config.frame) {
-                boolean flag = par1World.getBlockId(par2 - 1, par3, par4) == this.blockID || par1World.getBlockId(par2 + 1, par3, par4) == this.blockID;
-                boolean flag1 = par1World.getBlockId(par2, par3, par4 - 1) == this.blockID || par1World.getBlockId(par2, par3, par4 + 1) == this.blockID;
-                if (flag && flag1) {
-                    par1World.setBlockToAir(par2, par3, par4);
-                } else {
-                    if ((par1World.getBlockId(par2 + b0, par3, par4 + b1) != config.frame || par1World.getBlockId(par2 - b0, par3, par4 - b1) != this.blockID) && (par1World.getBlockId(par2 - b0, par3, par4 - b1) != config.frame || par1World.getBlockId(par2 + b0, par3, par4 + b1) != this.blockID)) {
-                        par1World.setBlockToAir(par2, par3, par4);
-                    }
-                }
-            } else {
-                par1World.setBlockToAir(par2, par3, par4);
-            }
         }
     }
     
