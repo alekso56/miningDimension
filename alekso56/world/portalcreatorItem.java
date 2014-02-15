@@ -78,6 +78,6 @@ public class portalcreatorItem extends Item {
 
 	@Override
 	public void registerIcons(IconRegister par1IconRegister) {
-		this.itemIcon = par1IconRegister.registerIcon("alekso56:"+ getUnlocalizedName().substring(5));
+		this.itemIcon = par1IconRegister.registerIcon("alekso56Mining:"+ getUnlocalizedName().substring(5));
 	}
 }

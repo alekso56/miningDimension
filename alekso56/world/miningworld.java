@@ -13,10 +13,10 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = "alekso56's miningworld", name = "alekso56's miningworld", version = "1.3")
+@Mod(modid = "alekso56Mining", name = "alekso56's miningworld", version = "1.3")
 @NetworkMod(clientSideRequired = true, serverSideRequired = true)
 public class MiningWorld {
-	@Mod.Instance("alekso56's miningworld")
+	@Mod.Instance("alekso56Mining")
 	public static MiningWorld instancez;
 	public static BiomeGenMining miningBiome;
 	public static innerportalblock innerportalblockz = new innerportalblock(422);

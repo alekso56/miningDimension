@@ -16,7 +16,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class innerportalblock extends BlockBreakable {
 	public innerportalblock(int id) {
-		super(id, "alekso56:miningportal", Material.portal, false);
+		super(id, "alekso56Mining:miningportal", Material.portal, false);
 		this.setUnlocalizedName("miningportal");
 		this.setTickRandomly(true);
 		this.setHardness(-1.0F);
