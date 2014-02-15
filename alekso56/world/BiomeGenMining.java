@@ -16,8 +16,10 @@ public class BiomeGenMining extends BiomeGenBase {
 		setColor(2900485);
 		setBiomeName("Mining Biome");
 		setDisableRain(); // fak u rain
-		setTemperatureRainfall(0.8F, 0.0F); // temperature of the mining world, amount of rain.
-		setMinMaxHeight(0.0F, 0.0F); // min,max height of biome (world height not gen height)
+		setTemperatureRainfall(0.8F, 0.0F); // temperature of the mining world,
+											// amount of rain.
+		setMinMaxHeight(0.0F, 0.0F); // min,max height of biome (world height
+										// not gen height)
 		this.topBlock = ((byte) Block.grass.blockID); // top of ground
 		this.fillerBlock = ((byte) Block.dirt.blockID); // just beneath ground
 		this.theBiomeDecorator.flowersPerChunk = -999;
@@ -32,6 +34,7 @@ public class BiomeGenMining extends BiomeGenBase {
 		this.theBiomeDecorator.waterlilyPerChunk = -999;
 	}
 
+	@Override
 	public void decorate(World par1World, Random par2Random, int par3, int par4) {
 		super.decorate(par1World, par2Random, par3, par4);
 		int var5 = par2Random.nextInt(2);
@@ -77,6 +80,7 @@ public class BiomeGenMining extends BiomeGenBase {
 		}
 	}
 
+	@Override
 	public float getSpawningChance() {
 		if ((!config.spawnAnimals) && (!config.spawnMonsters)) {
 			return 0.0F;
@@ -85,6 +89,7 @@ public class BiomeGenMining extends BiomeGenBase {
 		return super.getSpawningChance();
 	}
 
+	@Override
 	public List getSpawnableList(EnumCreatureType par1EnumCreatureType) {
 		if ((!config.spawnAnimals) && (!config.spawnMonsters)) {
 			return new ArrayList();
