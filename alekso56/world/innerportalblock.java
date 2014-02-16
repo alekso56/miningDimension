@@ -5,6 +5,7 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBreakable;
 import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemMonsterPlacer;
@@ -22,6 +23,7 @@ public class innerportalblock extends BlockBreakable {
 		this.setHardness(-1.0F);
 		this.setStepSound(soundGlassFootstep);
 		this.setLightValue(0.75F);
+		this.setCreativeTab(CreativeTabs.tabTools);
 	}
 
 	/**
@@ -273,4 +275,6 @@ public class innerportalblock extends BlockBreakable {
 	public int idPicked(World par1World, int par2, int par3, int par4) {
 		return config.portal;
 	}
+	
+	public void registerIcon(){};
 }

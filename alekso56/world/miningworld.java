@@ -35,21 +35,14 @@ public class MiningWorld {
 		miningBiome = new BiomeGenMining(config.biomeID);
 
 		if (DimensionManager.isDimensionRegistered(config.dimension)) {
-			System.out
-					.println("Failed to register the Mining Dimension with the ID "
-							+ config.dimension + ". Please pick another one!");
+			System.out.println("Failed to register the Mining Dimension with the ID "+ config.dimension + ". Please pick another one!");
 		} else {
-			DimensionManager.registerProviderType(config.dimension,
-					WorldJoinPrintProvider.class, false);
-			DimensionManager.registerDimension(config.dimension,
-					config.dimension);
-			FMLInterModComms.sendMessage("BuildCraft|Energy",
-					"oil-gen-exclude", miningBiome.biomeID + "");
+			DimensionManager.registerProviderType(config.dimension,WorldJoinPrintProvider.class, false);
+			DimensionManager.registerDimension(config.dimension,config.dimension);
+			
+			FMLInterModComms.sendMessage("BuildCraft|Energy","oil-gen-exclude", miningBiome.biomeID + "");
 			BiomeManager.addStrongholdBiome(miningBiome);
-			BiomeDictionary
-					.registerBiomeType(
-							miningBiome,
-							new BiomeDictionary.Type[] { BiomeDictionary.Type.MOUNTAIN });
+			BiomeDictionary.registerBiomeType(miningBiome,new BiomeDictionary.Type[] { BiomeDictionary.Type.MOUNTAIN });
 
 			miningBiome.clearMonsters();
 		}
@@ -78,8 +71,7 @@ public class MiningWorld {
 	static double CPGReplaceStoneNoiseDivisor = 3D;
 	static double CPGReplaceStoneNoiseAdd = 3D;
 	static double CPGReplaceStoneNoiseRandScale = config.height;
-	static int CPGReplaceBedrockChance = 1; // flat bedrock set? meh, me luv
-											// flat bedrock
+	static int CPGReplaceBedrockChance = 1; // flat bedrock set? meh, me luv flat bedrock
 	static byte CPGReplaceBedrockID = (byte) Block.bedrock.blockID;
 	static int CPGBedrockMode = 0;
 	static int CPGReplaceColumnSkipID = (byte) Block.stone.blockID;
@@ -93,23 +85,18 @@ public class MiningWorld {
 	static byte CPGReplaceSandSupportID = (byte) Block.sandStone.blockID;
 	static long CPGProvideXSeedMult = 0x4f9939f508L;
 	static long CPGProvideZSeedMult = 0x1ef1565bd5L;
-	static double CPGInitNoiseXZMajorScale = 684.41200000000003D; // Terrain
-																	// Noise
-																	// Scaling
-																	// Parameters
+	static double CPGInitNoiseXZMajorScale = 684.41200000000003D; // Terrain Noise Scaling Parameters
 	static double CPGInitNoiseYMajorScale = 684.41200000000003D;
 	static double CPGInitNoiseXMidScale = 200D;
 	static double CPGInitNoiseZMidScale = 200D;
 	static double CPGInitNoiseYMidScale = 0.5D;
-	static double CPGInitNoiseXSlopeDiv = 80D; // Terrain Noise Interpolation
-												// Parameters
+	static double CPGInitNoiseXSlopeDiv = 80D; // Terrain Noise Interpolation Parameters
 	static double CPGInitNoiseZSlopeDiv = 80D;
 	static double CPGInitNoiseYSlopeDiv = 160D;
 	static double CPGInitNoiseSlopeDenom = 10D;
 	static double CPGInitNoiseSlopeAdd = 1.0D;
 	static double CPGInitNoiseSlopeScale = 0.5D;
-	static double CPGInitNoiseXLowerScale = 1.0D; // Terrain Noise Upper/Lower
-													// Limit Parameters
+	static double CPGInitNoiseXLowerScale = 1.0D; // Terrain Noise Upper/Lower Limit Parameters
 	static double CPGInitNoiseYLowerScale = 1.0D;
 	static double CPGInitNoiseZLowerScale = 1.0D;
 	static double CPGInitNoiseXUpperScale = 1.0D;
