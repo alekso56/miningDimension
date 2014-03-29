@@ -62,7 +62,7 @@ public class ChunkProviderMining implements IChunkProvider {
 		ravineGenerator = new MapGenRavine();
 		unusedIntArray32x32 = new int[32][32];
 		worldObj = world;
-		mapFeaturesEnabled = flag;
+		mapFeaturesEnabled = false;
 		rand = new Random(l);
 		genSeed = l;
 		noiseGen1 = new NoiseGeneratorOctaves(rand,
@@ -501,7 +501,7 @@ public class ChunkProviderMining implements IChunkProvider {
 		rand.setSeed(i * l1 + j * l2 ^ worldObj.getSeed());
 		boolean flag = false;
 
-		if (mapFeaturesEnabled) {
+		/*if (mapFeaturesEnabled) {
 			mineshaftGenerator.generateStructuresInChunk(worldObj, rand, i, j);
 			flag = villageGenerator.generateStructuresInChunk(worldObj, rand,
 					i, j);
@@ -541,7 +541,7 @@ public class ChunkProviderMining implements IChunkProvider {
 
 			if ((new WorldGenDungeons()).generate(worldObj, rand, i3, i4, k4))
 				;
-		}
+		}*/
 
 		biomegenbase.decorate(worldObj, rand, k, l);
 		SpawnerAnimals.performWorldGenSpawning(worldObj, biomegenbase, k + 8,
@@ -584,7 +584,7 @@ public class ChunkProviderMining implements IChunkProvider {
 	 * will not remove any chunks.
 	 */
 	public boolean unload100OldestChunks() {
-		return false;
+		return true;
 	}
 
 	/**

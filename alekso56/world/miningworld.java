@@ -53,14 +53,14 @@ public class MiningWorld {
 		event.registerServerCommand(new portalActivator());
 	}
 
-	static double SeaLevelScale = 0.5D;
+	static double SeaLevelScale = 0.2D;
 	static int CPGNoiseGen1Octaves = 16;
 	static int CPGNoiseGen2Octaves = 16;
 	static int CPGNoiseGen3Octaves = 8;
 	static int CPGNoiseGen4Octaves = 4;
 	static int CPGNoiseGen5Octaves = 10;
 	static int CPGNoiseGen6Octaves = 16;
-	static int CPGMobSpawnerNoiseOctaves = 8;
+	static int CPGMobSpawnerNoiseOctaves = 2;
 	static double CPGGenTerrainYFactor = 0.128D;
 	static double CPGGenTerrainXZFactor1 = 0.40D;
 	static double CPGGenTerrainXZFactor2 = 0.40D;
@@ -127,16 +127,16 @@ public class MiningWorld {
 	static float CPGInitNoiseMidDenom = 8000F;
 	static double CPGInitNoiseHeightLimitDenom = 3D;
 	static double CPGInitNoiseHeightLimitRoundoff = -10D;
-	static int CPGPopulateLakeChance = 5;
+	static int CPGPopulateLakeChance = 1;
 	static int CPGPopulateLakeYMin = 0;
-	static int CPGPopulateLakeYRange = 256;
+	static int CPGPopulateLakeYRange = 20;
 	static int CPGPopulateLakeID = Block.waterStill.blockID;
-	static int CPGPopulateLavaChance = 15;
+	static int CPGPopulateLavaChance = 1;
 	static int CPGPopulateLavaYMin = 0;
-	static int CPGPopulateLavaYRange = 256;
-	static int CPGPopulateAboveGroundLavaChance = 10;
+	static int CPGPopulateLavaYRange = 20;
+	static int CPGPopulateAboveGroundLavaChance = 1;
 	static int CPGPopulateLavaID = Block.lavaStill.blockID;
-	static int CPGPopulateDungeonCount = 8;
+	static int CPGPopulateDungeonCount = 0;
 	static int CPGPopulateDungeonYMin = 0;
-	static int CPGPopulateDungeonYRange = 256;
+	static int CPGPopulateDungeonYRange = 20;
 }

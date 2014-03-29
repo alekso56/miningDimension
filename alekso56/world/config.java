@@ -35,7 +35,7 @@ public class config {
 		spawnAnimalsProp.comment = "If Animals spawn in the Mining World.";
 		spawnAnimals = spawnAnimalsProp.getBoolean(false);
 		// worldgen height int -> double
-		Property worldheight = config.get("general", "worldheight", 256);
+		Property worldheight = config.get("general", "worldheight", 128);
 		worldheight.comment = "Set the worldgen height for the mining dimension";
 		height = worldheight.getInt(256);
 		// inner portal block id
